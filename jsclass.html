@@ -31,20 +31,11 @@
 
 
     var Animal = K(function() {
-      this.noise = null;
-    })
-    .mixin({
-      makeNoise: function() {
-        console.log("this", this)
-        // alert(this.noise);
-      }
+      this.noise = 'poof';
     });
 
     var Dog = K(function() {
       this.noise = 'woof';
-      this.bark = function() {
-        return 'foo';
-      }
     })
     .proto(Animal)
     .mixin({
@@ -53,37 +44,8 @@
       }
     });
     
-    Dog.prototype.fooz = function() {};
-    
-    var Lassie = K(function() {})
-      .proto(Dog)
-      .mixin({
-        foo: function() {
-          console.log('foobar');
-        }
-      });
-    
     var d = new Dog;
-
-    for (var i in d) {
-      console.log('first found ', i);
-      if (d.hasOwnProperty(i)) console.log('really found ', i);
-    }
     d.bark();
-    d.makeNoise();
-
-    // var Dog = function() {
-    //   this.noise = 'woof';
-    // }
-    //
-    // Dog.prototype = new Animal;
-    // Dog.prototype.construtor = Dog;
-    //
-    // Dog.prototype.bark = function() {
-    //   console.log(this.noise);
-    // };
-
-
   </script>
 </head>
 </html>
