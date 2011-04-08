@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title>jsclass</title>
+  <script type="text/javascript" charset="utf-8" src="http://documentcloud.github.com/underscore/underscore.js">
+  </script>
+  <script type="text/javascript" charset="utf-8" src="vendor/underscore/underscore.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="lib/klass.js"></script>
+  <script type="text/javascript" charset="utf-8">
+/*
+    Inheritence systems:
+    http://ejohn.org/blog/simple-javascript-inheritance/
+      * uses init method
+      * has class.extend
+    http://mootools.net/docs/core/Class/Class
+      * uses Extends... weird
+    http://www.danwebb.net/2008/1/31/low-pro-for-jquery
+    http://api.prototypejs.org/language/Class/
+
+    My implementation:
+      * should be simple
+      * should follow js convention but simplify the annoying parts
+        * ie method passed in should be the constructor
+        * should prevent accidental calling of the constructor with out the new keyword
+      * should _not_ attempt to reimplement a classical OOP system perse
+      * should make it simple to add methods and to reference the parent's methods
+*/
+
+
+
+    var Animal = K(function() {
+      this.noise = null;
+    })
+    .mixin({
+      makeNoise: function() {
+        console.log("this", this)
+        // alert(this.noise);
+      }
+    });
+
+    var Dog = K(function() {
+      this.noise = 'woof';
+      this.bark = function() {
+        return 'foo';
+      }
+    })
+    .proto(Animal)
+    .mixin({
+      bark: function() {
+        console.log(this.noise);
+      }
+    });
+    
+    Dog.prototype.fooz = function() {};
+    
+    var Lassie = K(function() {})
+      .proto(Dog)
+      .mixin({
+        foo: function() {
+          console.log('foobar');
+        }
+      });
+    
+    var d = new Dog;
+
+    for (var i in d) {
+      console.log('first found ', i);
+      if (d.hasOwnProperty(i)) console.log('really found ', i);
+    }
+    d.bark();
+    d.makeNoise();
+
+    // var Dog = function() {
+    //   this.noise = 'woof';
+    // }
+    //
+    // Dog.prototype = new Animal;
+    // Dog.prototype.construtor = Dog;
+    //
+    // Dog.prototype.bark = function() {
+    //   console.log(this.noise);
+    // };
+
+
+  </script>
+</head>
+</html>
+<body id="jsclass" onload="">
+
+</body>
